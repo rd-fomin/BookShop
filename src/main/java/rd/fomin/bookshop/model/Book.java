@@ -1,11 +1,9 @@
 package rd.fomin.bookshop.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.hibernate.Hibernate;
 
@@ -22,7 +20,6 @@ import java.util.Objects;
 @Accessors(chain = true, fluent = true)
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @Table(name = "book")
 @Entity
