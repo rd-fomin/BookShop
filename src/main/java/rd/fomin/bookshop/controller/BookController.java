@@ -1,7 +1,6 @@
 package rd.fomin.bookshop.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +10,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import rd.fomin.bookshop.model.Book;
+import rd.fomin.bookshop.model.dto.BookDto;
 import rd.fomin.bookshop.service.BookService;
 
 import java.util.List;
 
-@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/books")
@@ -24,24 +22,24 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
-    public ResponseEntity<List<Book>> get() {
+    public ResponseEntity<List<BookDto>> get() {
         var books = bookService.getAll();
         return ResponseEntity.ok(books);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Book> get(@PathVariable Long id) {
+    public ResponseEntity<BookDto> get(@PathVariable Long id) {
         return ResponseEntity.ok(bookService.getOne(id));
     }
 
     @PostMapping
-    public ResponseEntity<Book> post(@RequestBody Book book) {
+    public ResponseEntity<BookDto> post(@RequestBody BookDto book) {
         var saved = bookService.add(book);
         return ResponseEntity.ok(saved);
     }
 
     @PutMapping
-    public ResponseEntity<Book> put(@RequestBody Book book) {
+    public ResponseEntity<BookDto> put(@RequestBody BookDto book) {
         var edited = bookService.edit(book);
         return ResponseEntity.ok(edited);
     }
