@@ -13,5 +13,6 @@ import java.util.List;
 public class BookDto implements Serializable {
     private Long id;
     private String name;
+    private Long count;
     private List<Long> authorIds;
 }

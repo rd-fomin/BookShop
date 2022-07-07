@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import rd.fomin.bookshop.model.dto.BookDto;
+import rd.fomin.bookshop.model.dto.BookFilter;
 import rd.fomin.bookshop.service.BookService;
 
 import java.util.List;
@@ -22,8 +24,10 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
-    public ResponseEntity<List<BookDto>> get() {
-        var books = bookService.getAll();
+    public ResponseEntity<List<BookDto>> get(@RequestParam(required = false) String name,
+                                             @RequestParam(required = false) Long count) {
+        var filter = BookFilter.builder().name(name).count(count).build();
+        var books = bookService.getAllByFilter(filter);
         return ResponseEntity.ok(books);
     }
 

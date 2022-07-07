@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import rd.fomin.bookshop.exception.BookShopException;
 import rd.fomin.bookshop.model.dto.AuthorDto;
 import rd.fomin.bookshop.model.mapper.AuthorMapper;
-import rd.fomin.bookshop.repo.AuthorRepository;
+import rd.fomin.bookshop.repository.AuthorRepository;
 
 import java.util.List;
 import java.util.Optional;

@@ -5,8 +5,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import rd.fomin.bookshop.exception.BookShopException;
 import rd.fomin.bookshop.model.dto.BookDto;
+import rd.fomin.bookshop.model.dto.BookFilter;
 import rd.fomin.bookshop.model.mapper.BookMapper;
-import rd.fomin.bookshop.repo.BookRepository;
+import rd.fomin.bookshop.repository.BookRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,12 @@ public class BookService {
 
     public List<BookDto> getAll() {
         return bookRepository.findAll().stream()
+                .map(bookMapper::toBookDto)
+                .toList();
+    }
+
+    public List<BookDto> getAllByFilter(BookFilter filter) {
+        return bookRepository.findAllByFilter(filter).stream()
                 .map(bookMapper::toBookDto)
                 .toList();
     }

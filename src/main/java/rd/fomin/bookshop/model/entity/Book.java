@@ -38,11 +38,14 @@ public class Book implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "count", nullable = false)
+    private Long count;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "book_author",
-            joinColumns = { @JoinColumn(name = "book_id") },
-            inverseJoinColumns = { @JoinColumn(name = "author_id") }
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
     )
     private List<Author> authors;
 
