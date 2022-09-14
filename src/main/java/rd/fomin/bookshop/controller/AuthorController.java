@@ -1,8 +1,9 @@
 package rd.fomin.bookshop.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,6 @@ import rd.fomin.bookshop.service.AuthorService;
 
 import java.util.List;
 
-@Log4j2
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/authors")
@@ -27,7 +27,11 @@ public class AuthorController {
     }
 
     @PostMapping
-    public ResponseEntity<AuthorDto> post(@RequestBody AuthorDto book) {
+    public ResponseEntity<AuthorDto> post(@RequestBody @Validated AuthorDto book,
+                                          BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
         var saved = authorService.add(book);
         return ResponseEntity.ok(saved);
     }

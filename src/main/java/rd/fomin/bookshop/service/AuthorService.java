@@ -3,17 +3,20 @@ package rd.fomin.bookshop.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import rd.fomin.bookshop.exception.BookShopException;
 import rd.fomin.bookshop.model.dto.AuthorDto;
 import rd.fomin.bookshop.model.mapper.AuthorMapper;
 import rd.fomin.bookshop.repository.AuthorRepository;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Log4j2
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class AuthorService {
     private final AuthorRepository authorRepository;
     private final AuthorMapper authorMapper;
@@ -24,9 +27,10 @@ public class AuthorService {
                 .toList();
     }
 
+    @Transactional
     public AuthorDto add(AuthorDto author) {
         return Optional.ofNullable(author)
-                .map(a -> a.setId(null))
+                .filter(a -> Objects.isNull(a.id()))
                 .map(authorMapper::toAuthor)
                 .map(authorRepository::save)
                 .map(authorMapper::toAuthorDto)

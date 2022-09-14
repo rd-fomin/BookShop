@@ -1,10 +1,12 @@
 package rd.fomin.bookshop.model.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.Hibernate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,14 +22,16 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 @Accessors(chain = true)
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 @NoArgsConstructor
-@Table(name = "book")
 @Entity
+@Table(name = "book")
 public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_sequence")
@@ -48,17 +52,4 @@ public class Book implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
     private List<Author> authors;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Book book = (Book) o;
-        return id != null && Objects.equals(id, book.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

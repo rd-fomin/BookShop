@@ -1,10 +1,12 @@
 package rd.fomin.bookshop.model.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,12 +16,14 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Accessors(chain = true)
 @Getter
 @Setter
+@Builder
+@EqualsAndHashCode(of = "id")
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "author")
 public class Author implements Serializable {
@@ -37,17 +41,4 @@ public class Author implements Serializable {
 
     @Column(name = "last_name", nullable = false)
     private String lastName;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Author author = (Author) o;
-        return id != null && Objects.equals(id, author.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

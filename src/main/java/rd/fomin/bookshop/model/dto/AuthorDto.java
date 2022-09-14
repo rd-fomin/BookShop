@@ -1,17 +1,14 @@
 package rd.fomin.bookshop.model.dto;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+import lombok.Builder;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Accessors(chain = true)
-@Data
-@NoArgsConstructor
-public class AuthorDto implements Serializable {
-    private Long id;
-    private String firstName;
-    private String middleName;
-    private String lastName;
+@Builder
+public record AuthorDto(Long id,
+                        @NotNull @NotBlank String firstName,
+                        String middleName,
+                        @NotNull @NotBlank String lastName) implements Serializable {
 }
