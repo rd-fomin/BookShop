@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://host.docker.internal:5432/book_shop
+    username: tech_user
+    password: 12345
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    show-sql: true
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 355751956579-gvdrnh3pse9qdsvagoi9ror3oani2g71.apps.googleusercontent.com
+            clientSecret: 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
+            redirectUri: http://localhost:8080/login/oauth2/code/google
+            scope:
+              - openid
+              - profile
+              - email
+logging:
+  level:
+    org.springframework.web: info
+    root: info
